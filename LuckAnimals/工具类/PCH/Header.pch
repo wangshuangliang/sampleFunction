@@ -1,0 +1,97 @@
+//
+//  Header.pch
+//  LuckAnimals
+//
+//  Created by wsl 王 on 2018/8/6.
+//  Copyright © 2018年 wsl 王. All rights reserved.
+//
+
+#ifndef Header_h
+#define Header_h
+
+/** 三方 **/
+#import <AFNetworking.h>
+#import <Reachability.h>
+#import <SVProgressHUD.h>
+#import <YYModel.h>
+#import <MJRefresh.h>
+#import <ReactiveObjC/ReactiveObjC.h>
+
+/** 工程 **/
+#import "WSLLKSingle.h"
+#import <objc/runtime.h>
+#import "UIScrollView+WSLScrollView.h"
+#import "UITableViewCell+WSLLKCell.h"
+#import "UIView+WSLLKView.h"
+#import "WSLLKBaseModel.h"
+#import "UINavigationController+Cloudox.h"
+#import "UIViewController+Cloudox.h"
+#endif /* Header_h */
+
+#ifdef DEBUG
+#define debugLog(...) NSLog(__VA_ARGS__)
+#define debugMethod() NSLog(@"%s", __func__)
+#else
+#define debugLog(...)
+#define debugMethod()
+#endif
+
+#define RGB(A, B, C)    [UIColor colorWithRed:A/255.0 green:B/255.0 blue:C/255.0 alpha:1.0]
+//机型判断
+#pragma mark - Device
+#define kScaleFrom_iPhone5_Desgin(_X_) (_X_ * (kScreen_Width/320))
+#define kDevice_iPhone4     ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_iPhone5     ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_iPhone6     ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_iPhoneX     ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
+
+//OS系统
+#pragma mark - Edition
+#define kIOSVersion             ((float)[[[UIDevice currentDevice] systemVersion] doubleValue])
+//Edition
+#define kEdition_iOS7           (([UIDevice currentDevice].systemVersion.floatValue >= 7.0f && [UIDevice currentDevice].systemVersion.floatValue < 8.0) ? YES : NO)
+#define kEdition_iOS7OrLater    (([UIDevice currentDevice].systemVersion.floatValue >= 7.0f) ? YES : NO)
+#define kEdition_iOS8           (([UIDevice currentDevice].systemVersion.floatValue >= 8.0f && [UIDevice currentDevice].systemVersion.floatValue < 9.0f) ? YES : NO)
+#define kEdition_iOS8OrLater    (([UIDevice currentDevice].systemVersion.floatValue >= 8.0f) ? YES : NO)
+#define kEdition_iOS9           (([UIDevice currentDevice].systemVersion.floatValue >= 9.0f && [UIDevice currentDevice].systemVersion.floatValue < 10.0f) ? YES : NO)
+#define kEdition_iOS9OrLater    (([UIDevice currentDevice].systemVersion.floatValue >= 9.0f) ? YES : NO)
+#define kEdition_iOS10          (([UIDevice currentDevice].systemVersion.floatValue >= 10.0f && [UIDevice currentDevice].systemVersion.floatValue < 11.0f) ? YES : NO)
+#define kEdition_iOS10OrLater   (([UIDevice currentDevice].systemVersion.floatValue >= 10.0f) ? YES : NO)
+#define kEdition_iOS11          (([[UIDevice currentDevice].systemVersion floatValue] >= 11) ? YES : NO)
+#define kEdition_iOS_EqualTo(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define kEdition_iOS_GreaterThan(v)             ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define kEdition_iOS_GreaterThanOrEqualTo(v)    ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define kEdition_iOS_LessThan(v)                ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define kEdition_iOS_LessThanOrEqualTo(v)       ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+
+//颜色
+#pragma mark - Color
+#define kColorRGB(r,g,b) [UIColor colorWithRed:(CGFloat)(r)/255.0 green:(CGFloat)(g)/255.0 blue:(CGFloat)(b)/255.0 alpha:1]
+#define kColorHex(hexValue) [UIColor \
+colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((hexValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(hexValue & 0xFF))/255.0 alpha:1.0]
+
+
+
+//Frame
+#pragma mark - Frame
+#define kScreen_Bounds [UIScreen mainScreen].bounds
+#define kScreen_Width [UIScreen mainScreen].bounds.size.width
+#define kScreen_Height [UIScreen mainScreen].bounds.size.height
+#define kViewSafeAreaInsets(view) ({UIEdgeInsets i; if(@available(iOS 11.0, *)) {i = view.safeAreaInsets;} else {i = UIEdgeInsetsZero;} i;})
+#define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define kNavigationBarHeight self.navigationController.navigationBar.frame.size.height
+
+#define kSafeAreaTopHeight (kScreen_Height == 812.0 ? 88 : 64)
+#define kSafeAreaBottomHeight (kScreen_Height == 812.0 ? 34 : 0)
+#define kViewAtBottomHeight (49 + kSafeAreaBottomHeight)
+
+#define kTabBarHeight (kDevice_iPhoneX ? 83 : 49)
+#define kSafeBottomOffset (kDevice_iPhoneX ? 34 : 0)
+
+#define successCode 1
+
